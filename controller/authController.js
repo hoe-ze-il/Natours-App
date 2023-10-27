@@ -100,13 +100,12 @@ exports.protect = catchAsync(async (req, res, next) => {
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     // roles ['admin', 'lead-guide']
-    if (roles.includes('admin') || roles.includes('lead-guide')) {
-      return next();
-    } else {
+    if (!roles.includes(req.user.role)) {
       return next(
-        new AppError('You do not have permission this delete the tore.', 403),
+        new AppError('You do not have permission to do this process.', 403),
       );
     }
+    next();
   };
 };
 
