@@ -115,6 +115,13 @@ tourSchema.virtual('durationWeeks').get(function () {
   next();
 });
 
+// Virtual populate
+tourSchema.virtual('reviews', {
+  ref: 'Review',
+  foreignField: 'tour',
+  localField: '_id',
+});
+
 // DOCUMENT MIDDLEWARE: runs before .save() and .create() NOT for update
 tourSchema.pre('save', function (next) {
   this.slug = slugify(this.name, { lower: true });
