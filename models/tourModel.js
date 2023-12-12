@@ -35,6 +35,7 @@ const tourSchema = new mongoose.Schema(
       default: 4.5,
       min: [1, 'Rating must be ablove 1.0'],
       max: [5, 'Rating must be below 5.0'],
+      set: (val) => Math.round(val * 10) / 10, // 4.666666.., 46.666666..., 47, 4.7
     },
     ratingsQuantity: {
       type: Number,
@@ -131,6 +132,7 @@ tourSchema.pre('save', function (next) {
   next();
 });
 
+// Embedding
 // tourSchema.pre('save', async function (next) {
 //   const guidesPromises = this.guides.map(async (id) => await User.findById(id));
 //   this.guides = await Promise.all(guidesPromises);

@@ -25,6 +25,10 @@ router
   .get(tourController.aliasTopTours, tourController.getAllTours);
 
 router
+  .route('/tours-within/:distance/center/:lating/unit/:unit')
+  .get(tourController.getToursWithin);
+
+router
   .route('/')
   .get(tourController.getAllTours)
   .post(
